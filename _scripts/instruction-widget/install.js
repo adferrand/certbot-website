@@ -26,7 +26,7 @@ module.exports = function(context) {
     context.dns_plugins = false;
     // Each case listed here should map to a template.
     // They don't necessarily need to map to distros.
-    if (context.webserver == "plesk" || context.distro == "nonunix" ||
+    if (context.webserver == "plesk" ||
         context.distro == "sharedhost") {
         return '';
     }
@@ -34,7 +34,7 @@ module.exports = function(context) {
       debian_install();
     }
     else if (context.distro == "ubuntu" && context.version >= 14.04){
-        ubuntu_install();
+      ubuntu_install();
     }
     // @todo: Implement or complete these.
     // else if (context.distro == "python"){
@@ -57,11 +57,17 @@ module.exports = function(context) {
     }
     else if (context.distro == "macos") {
       macos_install();
-    } else if (context.distro == "devuan") {
+    } 
+    else if (context.distro == "devuan") {
       debian_install();
-    } else if (context.distro == "opensuse") {
+    } 
+    else if (context.distro == "opensuse") {
       opensuse_install();
-    } else {
+    }
+    else if (context.distro == "windows") {
+      windows_install();
+    }
+    else {
       auto_install();
     }
 
@@ -197,6 +203,7 @@ module.exports = function(context) {
     }
     context.dns_plugins = true;
   }
+  
   // @todo: convert to template style
   bsd_install = function() {
     template = "bsd"
@@ -241,6 +248,12 @@ module.exports = function(context) {
       context.package = "python-certbot-nginx";
     }
     context.dns_plugins = true;
+  }
+
+  windows_install = function() {
+    template = "windows"
+    context.package = "certbot";
+    context.base_command = "certbot";
   }
 
   auto_install = function() {

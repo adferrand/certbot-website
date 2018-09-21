@@ -12,8 +12,6 @@ module.exports = function(context) {
             plesk_getting_started();
         } else if (context.distro == "sharedhost") {
             shared_hosting_getting_started();
-        } else if (context.distro == "nonunix") {
-            nonunix_getting_started();
         } else if (context.certonly) {
             certonly_getting_started();
         } else if (context.webserver == "apache") {
@@ -49,10 +47,6 @@ module.exports = function(context) {
 
     certonly_getting_started = function() {
         template = "certonly";
-    }
-
-    nonunix_getting_started = function() {
-        template = "nonunix";
     }
 
     nginx_getting_started = function() {
